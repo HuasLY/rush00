@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:50:50 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/10 22:05:40 by oberrada         ###   ########.fr       */
+/*   Updated: 2015/01/11 19:04:15 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,11 @@
 
 Player::Player(void)
 {
-	X = 0;
-	Y = 0;
-	Hp = 1;
-	Dmg = 1;
-	std::cout << "Default Constructor Called, Class Player" <<std::endl;
-	std::cout<<"Your Position is "<<this->X<<"/"<<this->Y<<" And your Hp: "<<this->Hp<<"Damage: "<<this->Dmg<<std::endl;
 	return;
 }
 
-Player::Player(int x, int y, int hp, int dmg) : Entity(x, y, hp), Dmg(dmg)
+Player::Player(int x, int y, int hp, int dmg, char skin) : Entity(x, y, hp, dmg, skin)
 {
-    
-	std::cout << "Constructor Called, Class Player" <<std::endl;
-	std::cout<<"Your Position is "<<this->X<<"/"<<this->Y<<" And your Hp: "<<this->Hp<<" Damag: "<< this->Dmg<<std::endl;
 	return;
 }
 
@@ -40,7 +31,7 @@ Player::~Player(void)
 	return;
 }
 
-Player::Player(Player const & src): Entity(src)
+Player::Player(Player const & src) : Entity(src)
 {
 	std::cout<<"Copy Constructor Called" <<std::endl;
 	*this = src;
@@ -50,15 +41,14 @@ Player::Player(Player const & src): Entity(src)
 Player & Player::operator=(Player const & rhs)
 {
 	std::cout << "Assignation Called, Class: Player" <<std::endl;
-	this->X = rhs.X;
-	this->Y = rhs.Y;
-	this->Hp = rhs.Hp;
-	this->Dmg = rhs.Dmg;
+	this->_x = rhs._x;
+	this->_y = rhs._y;
+	this->_hp = rhs._hp;
+	this->_dmg = rhs._dmg;
 	return *this;
 }
 
-Projectile  *Player::attack(int X, int Y, int HP)
+Projectile  *Player::attack(int x, int y, int hp)
 {
-	Projectile * Attack = new Projectile(X, Y, HP);
-	return Attack;
+	return new Projectile(x + 1, y, hp, 1, '-');
 }

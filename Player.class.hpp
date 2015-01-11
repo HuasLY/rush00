@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:45:31 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/10 22:05:40 by oberrada         ###   ########.fr       */
+/*   Updated: 2015/01/11 18:55:28 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,11 @@
 class Player: public Entity{
 	public:
     	Player(void);
-    	Player(int x, int y, int hp, int dmg);
+    	Player(int x, int y, int hp, int dmg, char skin);
 	    ~Player(void);
 	    Player(Player const & src);
    		Player & operator=(Player const & rhs);
-		Projectile *attack(int X, int Y, int HP);
-    
-    
-	private:
-		int		Dmg;
+		Projectile *attack(int X, int Y, int HP = 1);
 };
 
 

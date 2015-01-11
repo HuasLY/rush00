@@ -6,7 +6,7 @@
 /*   By: hly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 20:28:29 by hly               #+#    #+#             */
-/*   Updated: 2015/01/10 21:21:00 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 18:55:28 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_print_entities(t_data_entities data)
 	tmp = data.first;
 	while (tmp)
 	{
-		std::cout << tmp->entity->GetValueX() << ", " << tmp->entity->GetValueY() << " ";
+		std::cout << tmp->entity->getX() << ", " << tmp->entity->getY() << " ";
 		std::cout << std::endl;
 		tmp = tmp->next;
 	}
@@ -42,9 +42,9 @@ t_data_entities*	ft_add_entity(t_data_entities *data, Entity *entity)
 {
 	t_entities	*newEntity;
 
-	newEntity = new(t_entities);
-	if (data)
+	if (data && entity)
 	{
+		newEntity = new(t_entities);
 		newEntity->entity = entity;
 		newEntity->next = NULL;
 		if (data->first == NULL)

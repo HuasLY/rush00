@@ -3,75 +3,112 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/10 15:24:40 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/10 21:57:49 by oberrada         ###   ########.fr       */
+/*   Created: 2015/01/10 15:22:26 by hly               #+#    #+#             */
+/*   Updated: 2015/01/11 19:11:07 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <iostream>
-#include "Enemy.class.hpp"
+#include <ncurses.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "Entity.class.hpp"
+#include "Enemy.class.hpp"
 #include "Player.class.hpp"
 #include "Projectile.class.hpp"
+#include "ft_retro.hpp"
 
-Enemy	*Random(int maxX, int maxY){
+#define DELAY 30000
+
+Enemy	*Random(int maxX, int maxY) {
 	int		X;
 	int		Y;
 	int		HP;
 
-	X = maxX;
-	Y = (rand() % maxY) + 1;
-	HP = (rand() % 2) + 1;
-
-	Enemy	*enemyrand = new Enemy(X, Y, HP);
-	return enemyrand;
-
+	if (rand() % SPAWN_RATE == 1)
+	{
+		X = maxX;
+		Y = (rand() % maxY) + 1;
+		HP = (rand() % 2) + 1;
+		return new Enemy(X, Y, HP, ENEMY_SKIN);
+	}
+	return NULL;
 }
 
-int		main()
-{
+Entity &	collision(Entity & entity, std::string direction, t_data_entities data) {
+	t_entities	*tmp;
+
+	while (tmp) {
+		switch (direction) {
+			case UP:
+				if (tmp->getX() == entity.getValueX() && tmp->getY() == entity.getY())
+
+				break;
+		}
+		tmp = tmp->next;
+	}
+}
+
+void	movePlayer(Player &player, int cmd, int maxX, int maxY) {
+	if (cmd == KEY_UP && player.getY() > 0)
+		player.Move(UP);
+	else if (cmd == KEY_DOWN && player.getY() < maxY)
+		player.Move(DOWN);
+	else if (cmd == KEY_LEFT && player.getX() > 0)
+		player.Move(LEFT);
+	else if (cmd == KEY_RIGHT && player.getX() < maxX)
+		player.Move(RIGHT);
+	mvaddch(player.getY(), player.getX(), player.getSkin());
+	return;
+}
+
+void	displayEntities(t_data_entities data) {
+	t_entities	*tmp;
+
+	tmp = data.first;
+	while (tmp) {
+		mvaddch(tmp->entity->getY(), tmp->entity->getX(), tmp->entity->getSkin());
+		tmp->entity->Move("");
+		tmp = tmp->next;
+	}
+	return;
+}
+
+int main(void) {
+	t_data_entities		data;
+	Player				player(10, 10, 1, 1, '>');
+	WINDOW				*win;
+	int 				maxX = 0;
+	int					maxY = 0;
+   	int					cmd = 0;
+
+	ft_init_data_entities(&data);
 	srand(time(NULL));
-	//Creation d'instance:
-	Entity Parent;
-	Entity ParentAtt(3, 5, 1);
-	Entity Copy(Parent);
-
-	//Player
-	Player Jean;
-	Player Jack(6, 7, 1, 1);
-	Player CopyJean(Jean);
-
-	//Enemy
-	Enemy EnyJean;
-	Enemy EnyJack(4, 7, 1, 1, "Effets spe");
-	Enemy CopyEnyJean(EnyJean);
-
-
-	//Projectile
-	Projectile Ly(0, 3, 1);
-
-	Enemy toto(1,1,1);
-
-	//Func:
-	Parent.Move("haut");
-	Copy.Move("droit");
-
-
-	Parent.Die();
-	Copy.Die();
-
-	//Func Player:
-	Jean.Move("haut");
-	CopyJean.Die();
-
-
-	//Func Enemy:
-	EnyJean.Move("bas");
-	CopyEnyJean.Die();
-
-	Random(5, 5);
-	return(0);
+	initscr();
+	noecho();
+	curs_set(FALSE);
+	refresh();
+	win = newwin(LINES, COLUMNS, 0, 0);
+	nodelay(stdscr, TRUE);
+	keypad(stdscr, TRUE);
+	getmaxyx(win, maxY, maxX);
+	mvaddch(player.getY(), player.getX(), player.getSkin());
+	refresh();
+	while(cmd != 27) {
+		cmd = getch();
+		clear();
+		if (cmd == ' ') {
+			ft_add_entity(&data, player.attack(player.getX(), player.getY()));
+		}
+		ft_add_entity(&data, Random(maxX, maxY));
+		displayEntities(data);
+		movePlayer(player, cmd, maxX, maxY);
+//		box(win, 0, 0);
+//		wrefresh(win);
+		refresh();
+		usleep(DELAY);
+	}
+	endwin();
 }

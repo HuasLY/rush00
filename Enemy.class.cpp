@@ -6,30 +6,21 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 16:34:08 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/10 22:06:02 by oberrada         ###   ########.fr       */
+/*   Updated: 2015/01/11 19:03:34 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "Enemy.class.hpp"
+#include "ft_retro.hpp"
 
 Enemy::Enemy(void)
 {
-	X = 0;
-	Y = 0;
-	Hp = 1;
-	Dmg = 1;
-	std::cout << "Default Constructor Called, Class Enemy" <<std::endl;
-
-	std::cout<<"Your Position is "<<this->X<<"/"<<this->Y<<" And your Hp: "<<this->Hp<<" Damag: "<< this->Dmg<<" Type: "<<this->Type<<std::endl;
 	return;
 }
 
-Enemy::Enemy(int x, int y, int hp, int dmg, std::string type) : Entity(x, y, hp), Dmg(dmg), Type(type)
+Enemy::Enemy(int x, int y, int hp, char skin, int dmg, std::string type) : Entity(x, y, hp, dmg, skin), _type(type)
 {
-    
-	std::cout << "Constructor Called, Class Enemy" <<std::endl;
-	std::cout<<"Your Position is "<<this->X<<"/"<<this->Y<<" And your Hp: "<<this->Hp<<" Damag: "<< this->Dmg<<" Type: "<<this->Type<<std::endl;
 	return;
 }
 
@@ -49,10 +40,17 @@ Enemy::Enemy(Enemy const & src): Entity(src)
 Enemy & Enemy::operator=(Enemy const & rhs)
 {
 	std::cout << "Assignation Called, Class: Enemy" <<std::endl;
-	this->X = rhs.X;
-	this->Y = rhs.Y;
-	this->Hp = rhs.Hp;
-	this->Dmg = rhs.Dmg;
-	this->Type = rhs.Type;
+	this->_x = rhs._x;
+	this->_y = rhs._y;
+	this->_hp = rhs._hp;
+	this->_dmg = rhs._dmg;
+	this->_skin = rhs._skin;
+	this->_type = rhs._type;
 	return *this;
+}
+
+void	Enemy::Move(std::string direction) {
+	(void)direction;
+	Entity::Move(LEFT);
+	return;
 }

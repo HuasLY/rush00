@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:13:40 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/10 22:03:25 by oberrada         ###   ########.fr       */
+/*   Updated: 2015/01/11 18:56:00 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,24 @@
 class Entity{
 	public:
 		Entity(void);
-		Entity(int x, int y, int hp);
+		Entity(int x, int y, int hp, int dmg, char skin = 'o');
 		~Entity(void);
 		Entity(Entity const & src);
 		Entity & operator=(Entity const & rhs);
 
-		void	Move(std::string direction);
+		virtual void	Move(std::string direction);
 		void	Die(void);
-		int		GetValueX(void);
-		int		GetValueY(void);
+		int		getX(void);
+		int		getY(void);
+		char	getSkin(void) const;
 		//todo: getHP
 
 	protected:
-		int		X;
-		int		Y;
-		int		Hp;
+		int		_x;
+		int		_y;
+		int		_hp;
+		int		_dmg;
+		char	_skin;
 };
 
 #endif //***********ENTTY_CLASS_H//

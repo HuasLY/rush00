@@ -6,28 +6,21 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:14:04 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/10 22:04:24 by oberrada         ###   ########.fr       */
+/*   Updated: 2015/01/11 19:54:30 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "Entity.class.hpp"
+#include "ft_retro.hpp"
 
-Entity::Entity(void)
+Entity::Entity(void) : _x(0), _y(0), _hp(1), _dmg(1), _skin('o')
 {
-	X = 0;
-	Y = 0;
-	Hp = 1;
-	std::cout << "Default Constructor Called, Class Entity" <<std::endl;
-	std::cout<<"Your Position is "<<this->X<<"/"<<this->Y<<" And your Hp: "<<this->Hp<< std::endl;
 	return;
 }
 
-Entity::Entity(int x, int y, int hp) : X(x), Y(y), Hp(hp)
+Entity::Entity(int x, int y, int hp, int dmg, char skin) : _x(x), _y(y), _hp(hp), _dmg(dmg), _skin(skin)
 {
-
-	std::cout << "Constructor Called, Class Entity" <<std::endl;
-	std::cout<<"Your Position is "<<this->X<<"/"<<this->Y<<" And your Hp: "<<this->Hp<< std::endl;
 	return;
 }
 
@@ -47,40 +40,45 @@ Entity::Entity(Entity const & src)
 Entity & Entity::operator=(Entity const & rhs)
 {
 	std::cout << "Assignation Called, Class: Entity" <<std::endl;
-	this->X = rhs.X;
-	this->Y = rhs.Y;
-	this->Hp = rhs.Hp;
+	this->_x = rhs._x;
+	this->_y = rhs._y;
+	this->_hp = rhs._hp;
+	this->_dmg = rhs._dmg;
+	this->_skin = rhs._skin;
 	return *this;
 }
 
-int		Entity::GetValueX(void)
+int		Entity::getX(void)
 {
-	return this->X;
+	return this->_x;
 }
 
-int		Entity::GetValueY(void)
+int		Entity::getY(void)
 {
-	return this->Y;
+	return this->_y;
+}
+
+char	Entity::getSkin(void) const
+{
+	return this->_skin;
 }
 
 void	Entity::Move(std::string direction)
 {
-	std::cout <<"Function Move Called"<<std::endl;
-	if (direction == "haut")
-		this->Y = this->Y - 1;
-	if (direction == "bas")
-		this->Y = this->Y + 1;
-	if (direction == "droit")
-		this->X = this->X + 1;
-	if (direction == "gauche")
-		this->X = this->X - 1;
+	if (direction == UP)
+		this->_y = this->_y - 1;
+	if (direction == DOWN)
+		this->_y = this->_y + 1;
+	if (direction == RIGHT)
+		this->_x = this->_x + 1;
+	if (direction == LEFT)
+		this->_x = this->_x - 1;
 	return;
 }
 
 void	Entity::Die(void)
 {
 	std::cout <<"Function Die Called"<<std::endl;
-	if (this->Hp == 0)
-		delete this;
+	delete this;
 	return;
 }

@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 19:35:51 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/10 22:07:54 by oberrada         ###   ########.fr       */
+/*   Updated: 2015/01/11 19:54:48 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,15 @@
 #include <iostream>
 #include "Entity.class.hpp"
 #include "Projectile.class.hpp"
+#include "ft_retro.hpp"
 
 Projectile::Projectile(void)
 {
-	X = 0;
-	Y = 0;
-	Hp = 1;
-	std::cout << "Default Constructor Called, Class Projectile" <<std::endl;
-	std::cout<<"Your Position is "<<this->X<<"/"<<this->Y<<" And your Hp: "<<this->Hp<<std::endl;
 	return;
 }
 
-Projectile::Projectile(int x, int y, int hp) : Entity(x, y, hp)
+Projectile::Projectile(int x, int y, int hp, int dmg, char skin) : Entity(x, y, hp, dmg, skin)
 {
-    
-	std::cout << "Constructor Called, Class Projectile" <<std::endl;
-	std::cout<<"Your Position is "<<this->X<<"/"<<this->Y<<" And your Hp: "<<this->Hp<<std::endl;
 	return;
 }
 
@@ -49,8 +42,19 @@ Projectile::Projectile(Projectile const & src): Entity(src)
 Projectile & Projectile::operator=(Projectile const & rhs)
 {
 	std::cout << "Assignation Called, Class: Projectile" <<std::endl;
-	this->X = rhs.X;
-	this->Y = rhs.Y;
-	this->Hp = rhs.Hp;
+	this->_x = rhs._x;
+	this->_y = rhs._y;
+	this->_hp = rhs._hp;
+	this->_dmg = rhs._dmg;
+	this->_skin = rhs._skin;
 	return *this;
+}
+
+void	Projectile::Move(std::string direction, t_data_entities &data)
+{
+	(void)direction;
+	this->Entity::Move(RIGHT);
+	if (collision(*this, data))
+		this->Die();
+	return;
 }
