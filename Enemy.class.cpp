@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 16:34:08 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/11 19:03:34 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 20:20:17 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ Enemy & Enemy::operator=(Enemy const & rhs)
 	return *this;
 }
 
-void	Enemy::Move(std::string direction) {
+void	Enemy::Move(std::string direction, t_data_entities &data) {
 	(void)direction;
-	Entity::Move(LEFT);
+	this->Entity::Move(LEFT, data);
 	return;
 }

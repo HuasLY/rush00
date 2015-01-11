@@ -6,7 +6,7 @@
 /*   By: hly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 20:03:58 by hly               #+#    #+#             */
-/*   Updated: 2015/01/11 16:54:38 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 22:58:49 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_entities
 {
 	Entity				*entity;
 	struct s_entities	*next;
+	struct s_entities	*previous;
 }					t_entities;
 
 typedef struct		s_data_entities
@@ -38,4 +39,6 @@ typedef struct		s_data_entities
 void	ft_init_data_entities(t_data_entities *data);
 void	ft_print_entities(t_data_entities data);
 t_data_entities*	ft_add_entity(t_data_entities *data, Entity *entity);
+Entity *	collision(Entity &entity, t_data_entities &data);
+
 #endif

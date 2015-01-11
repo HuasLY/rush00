@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 16:29:42 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/11 19:29:34 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 20:19:22 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class Enemy: public Entity{
 		~Enemy(void);
 	    Enemy(Enemy const & src);
 	    Enemy & operator=(Enemy const & rhs);
-		virtual void	Move(std::string direction);
+		virtual void	Move(std::string direction, t_data_entities &data);
     
 	private:
 		std::string	_type;

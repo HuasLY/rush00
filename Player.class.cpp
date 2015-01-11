@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:50:50 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/11 19:04:15 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 23:05:20 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ Player::Player(int x, int y, int hp, int dmg, char skin) : Entity(x, y, hp, dmg,
 
 Player::~Player(void)
 {
-	std::cout <<"Destructor Called, Class: Player" << std::endl;
 	return;
 }
 
@@ -51,4 +50,9 @@ Player & Player::operator=(Player const & rhs)
 Projectile  *Player::attack(int x, int y, int hp)
 {
 	return new Projectile(x + 1, y, hp, 1, '-');
+}
+
+bool	Player::isAlive(void) const
+{
+	return (this->_hp > 0);
 }

@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:14:04 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/11 19:54:30 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 23:05:28 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ Entity::Entity(int x, int y, int hp, int dmg, char skin) : _x(x), _y(y), _hp(hp)
 
 Entity::~Entity(void)
 {
-	std::cout <<"Destructor Called, Class: Entity" << std::endl;
 	return;
 }
 
@@ -48,6 +47,12 @@ Entity & Entity::operator=(Entity const & rhs)
 	return *this;
 }
 
+Entity & Entity::operator-=(int amount)
+{
+	this->_hp -= amount;
+	return *this;
+}
+
 int		Entity::getX(void)
 {
 	return this->_x;
@@ -63,8 +68,14 @@ char	Entity::getSkin(void) const
 	return this->_skin;
 }
 
-void	Entity::Move(std::string direction)
+int		Entity::getDmg(void) const {
+	return this->_dmg;
+}
+
+void	Entity::Move(std::string direction, t_data_entities &data)
 {
+	Entity	*other;
+
 	if (direction == UP)
 		this->_y = this->_y - 1;
 	if (direction == DOWN)
@@ -73,12 +84,29 @@ void	Entity::Move(std::string direction)
 		this->_x = this->_x + 1;
 	if (direction == LEFT)
 		this->_x = this->_x - 1;
+	if (this->_x < 0 || this->_x > COLUMNS || (other = collision(*this, data)))
+		this->Die(data, other);
 	return;
 }
 
-void	Entity::Die(void)
+void	Entity::Die(t_data_entities &data, Entity *other)
 {
-	std::cout <<"Function Die Called"<<std::endl;
+	t_entities	*tmp;
+
+	tmp = data.first;
+	while (tmp) {
+		if (tmp->entity == this || (other != NULL && tmp->entity == other)) {
+			if (tmp == data.first)
+				data.first = tmp->next;
+			if (tmp == data.last)
+				data.last = tmp->previous;
+			if (tmp->previous)
+				tmp->previous->next = tmp->next;
+			if (tmp->next)
+				tmp->next->previous = tmp->previous;
+		}
+		tmp = tmp->next;
+	}
 	delete this;
 	return;
 }

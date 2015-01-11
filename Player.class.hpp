@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:45:31 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/11 18:55:28 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 22:50:01 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class Player: public Entity{
 	    Player(Player const & src);
    		Player & operator=(Player const & rhs);
 		Projectile *attack(int X, int Y, int HP = 1);
+		bool	isAlive(void) const;
 };
 
 

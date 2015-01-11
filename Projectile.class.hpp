@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 19:33:38 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/11 19:16:19 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 20:18:53 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class Projectile: public Entity{
 		~Projectile(void);
 		Projectile(Projectile const & src);
 		Projectile & operator=(Projectile const & rhs);
-		virtual void	Move(std::string direction, t_data_entities data);
+		virtual void	Move(std::string direction, t_data_entities &data);
 };
 
 #endif //***********PROJECTILE_CLASS_H//

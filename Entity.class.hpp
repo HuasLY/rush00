@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:13:40 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/11 18:56:00 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 23:01:36 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #define ENTITY_CLASS_H
 
 #include <string>
+#include <stdlib.h>
+
+typedef struct s_data_entities t_data_entities;
 
 class Entity{
 	public:
@@ -22,12 +25,14 @@ class Entity{
 		~Entity(void);
 		Entity(Entity const & src);
 		Entity & operator=(Entity const & rhs);
+		Entity & operator-=(int amount);
 
-		virtual void	Move(std::string direction);
-		void	Die(void);
+		virtual void	Move(std::string direction, t_data_entities &data);
+		void	Die(t_data_entities &data, Entity *other = NULL);
 		int		getX(void);
 		int		getY(void);
 		char	getSkin(void) const;
+		int		getDmg(void) const;
 		//todo: getHP
 
 	protected:

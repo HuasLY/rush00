@@ -6,7 +6,7 @@
 /*   By: hly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:22:26 by hly               #+#    #+#             */
-/*   Updated: 2015/01/11 19:11:07 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 22:58:27 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,40 +37,43 @@ Enemy	*Random(int maxX, int maxY) {
 	return NULL;
 }
 
-Entity &	collision(Entity & entity, std::string direction, t_data_entities data) {
+Entity *	collision(Entity & entity, t_data_entities &data) {
 	t_entities	*tmp;
 
+	tmp = data.first;
 	while (tmp) {
-		switch (direction) {
-			case UP:
-				if (tmp->getX() == entity.getValueX() && tmp->getY() == entity.getY())
-
-				break;
+		if (tmp->entity != &entity && tmp->entity->getX() == entity.getX()
+			&& tmp->entity->getY() == entity.getY())
+		{
+			*tmp->entity -= entity.getDmg();
+			entity -= tmp->entity->getDmg();
+			return tmp->entity;
 		}
 		tmp = tmp->next;
 	}
+	return NULL;
 }
 
-void	movePlayer(Player &player, int cmd, int maxX, int maxY) {
+void	movePlayer(Player &player, t_data_entities &data, int cmd, int maxX, int maxY) {
 	if (cmd == KEY_UP && player.getY() > 0)
-		player.Move(UP);
+		player.Move(UP, data);
 	else if (cmd == KEY_DOWN && player.getY() < maxY)
-		player.Move(DOWN);
+		player.Move(DOWN, data);
 	else if (cmd == KEY_LEFT && player.getX() > 0)
-		player.Move(LEFT);
+		player.Move(LEFT, data);
 	else if (cmd == KEY_RIGHT && player.getX() < maxX)
-		player.Move(RIGHT);
+		player.Move(RIGHT, data);
 	mvaddch(player.getY(), player.getX(), player.getSkin());
 	return;
 }
 
-void	displayEntities(t_data_entities data) {
+void	displayEntities(t_data_entities &data) {
 	t_entities	*tmp;
 
 	tmp = data.first;
 	while (tmp) {
 		mvaddch(tmp->entity->getY(), tmp->entity->getX(), tmp->entity->getSkin());
-		tmp->entity->Move("");
+		tmp->entity->Move("", data);
 		tmp = tmp->next;
 	}
 	return;
@@ -83,6 +86,7 @@ int main(void) {
 	int 				maxX = 0;
 	int					maxY = 0;
    	int					cmd = 0;
+	bool				gameOver = false;
 
 	ft_init_data_entities(&data);
 	srand(time(NULL));
@@ -96,7 +100,7 @@ int main(void) {
 	getmaxyx(win, maxY, maxX);
 	mvaddch(player.getY(), player.getX(), player.getSkin());
 	refresh();
-	while(cmd != 27) {
+	while(cmd != 27 && !gameOver) {
 		cmd = getch();
 		clear();
 		if (cmd == ' ') {
@@ -104,9 +108,13 @@ int main(void) {
 		}
 		ft_add_entity(&data, Random(maxX, maxY));
 		displayEntities(data);
-		movePlayer(player, cmd, maxX, maxY);
-//		box(win, 0, 0);
-//		wrefresh(win);
+		if (collision(player, data))
+			gameOver = true;
+		else {
+			movePlayer(player, data, cmd, maxX, maxY);
+			if (collision(player, data))
+				gameOver = true;
+		}
 		refresh();
 		usleep(DELAY);
 	}

@@ -6,7 +6,7 @@
 /*   By: hly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 20:28:29 by hly               #+#    #+#             */
-/*   Updated: 2015/01/11 18:55:28 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 21:24:26 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,6 @@ void	ft_init_data_entities(t_data_entities *data)
 	return;
 }
 
-void	ft_print_entities(t_data_entities data)
-{
-	t_entities	*tmp;
-
-	tmp = data.first;
-	while (tmp)
-	{
-		std::cout << tmp->entity->getX() << ", " << tmp->entity->getY() << " ";
-		std::cout << std::endl;
-		tmp = tmp->next;
-	}
-	return;
-}
-
 t_data_entities*	ft_add_entity(t_data_entities *data, Entity *entity)
 {
 	t_entities	*newEntity;
@@ -47,6 +33,7 @@ t_data_entities*	ft_add_entity(t_data_entities *data, Entity *entity)
 		newEntity = new(t_entities);
 		newEntity->entity = entity;
 		newEntity->next = NULL;
+		newEntity->previous = data->last;
 		if (data->first == NULL)
 			data->first = newEntity;
 		else
