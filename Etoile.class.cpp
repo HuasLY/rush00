@@ -1,56 +1,71 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Enemy.class.cpp                                    :+:      :+:    :+:   */
+/*   Etoile.class.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/10 16:34:08 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/11 21:33:02 by oberrada         ###   ########.fr       */
+/*   Created: 2015/01/11 20:04:40 by oberrada          #+#    #+#             */
+/*   Updated: 2015/01/11 23:07:14 by oberrada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+#include <string>
 #include <iostream>
-#include "Enemy.class.hpp"
+#include "Entity.class.hpp"
+#include "Etoile.class.hpp"
 #include "ft_retro.hpp"
 
-Enemy::Enemy(void)
+Etoile::Etoile(void)
 {
 	return;
 }
 
-Enemy::Enemy(int x, int y, int hp, char skin, int dmg, std::string type) : Entity(x, y, hp, dmg, skin), _type(type)
+Etoile::Etoile(int x, int y, int hp, int dmg, char skin) : Entity(x, y, hp, dmg, skin)
 {
 	return;
 }
 
-Enemy::~Enemy(void)
+Etoile::~Etoile(void)
 {
-	std::cout <<"Destructor Called, Class: Enemy" << std::endl;
+	std::cout <<"Destructor Called, Class: Etoile" << std::endl;
 	return;
 }
 
-Enemy::Enemy(Enemy const & src): Entity(src)
+Etoile::Etoile(Etoile const & src): Entity(src)
 {
 	std::cout<<"Copy Constructor Called" <<std::endl;
 	*this = src;
 	return;
 }
 
-Enemy & Enemy::operator=(Enemy const & rhs)
+Etoile & Etoile::operator=(Etoile const & rhs)
 {
-	std::cout << "Assignation Called, Class: Enemy" <<std::endl;
+	std::cout << "Assignation Called, Class: Etoile" <<std::endl;
 	this->_x = rhs._x;
 	this->_y = rhs._y;
 	this->_hp = rhs._hp;
 	this->_dmg = rhs._dmg;
 	this->_skin = rhs._skin;
-	this->_type = rhs._type;
 	return *this;
 }
 
-void	Enemy::Move(std::string direction) {
+void	Etoile::scrolling(void)
+{
+	Etoile::_Movecount++;
+}
+
+void	Etoile::Move(std::string direction)
+{
 	(void)direction;
-	Entity::Move(LEFT);
+	if(_Movecount % 8 == 0)
+	{
+		this->Entity::Move(LEFT);
+/*		if (collision(*this, data))
+			this->Die();*/
+	}
 	return;
 }
+
+int	 Etoile::_Movecount = 0;

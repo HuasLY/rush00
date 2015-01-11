@@ -6,7 +6,7 @@
 /*   By: hly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:22:26 by hly               #+#    #+#             */
-/*   Updated: 2015/01/11 19:11:07 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 23:06:50 by oberrada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include "Entity.class.hpp"
 #include "Enemy.class.hpp"
+#include "Etoile.class.hpp"
 #include "Player.class.hpp"
 #include "Projectile.class.hpp"
 #include "ft_retro.hpp"
@@ -37,10 +38,26 @@ Enemy	*Random(int maxX, int maxY) {
 	return NULL;
 }
 
+
+Etoile	*RanPutEtoile(int maxX, int maxY) {
+	int		X;
+	int		Y;
+	int		HP;
+
+	if (rand() % SPAWN_RATE == 1)
+	{
+		X = maxX;
+		Y = (rand() % maxY) + 1;
+		HP = (rand() % 2) + 1;
+		return new Etoile(X, Y, HP, 0,ETOILE_SKIN);
+	}
+	return NULL;
+}
+
 Entity &	collision(Entity & entity, std::string direction, t_data_entities data) {
 	t_entities	*tmp;
 
-	while (tmp) {
+/*	while (tmp) {
 		switch (direction) {
 			case UP:
 				if (tmp->getX() == entity.getValueX() && tmp->getY() == entity.getY())
@@ -48,7 +65,7 @@ Entity &	collision(Entity & entity, std::string direction, t_data_entities data)
 				break;
 		}
 		tmp = tmp->next;
-	}
+	}*/
 }
 
 void	movePlayer(Player &player, int cmd, int maxX, int maxY) {
@@ -85,12 +102,13 @@ int main(void) {
    	int					cmd = 0;
 
 	ft_init_data_entities(&data);
+
 	srand(time(NULL));
 	initscr();
 	noecho();
 	curs_set(FALSE);
 	refresh();
-	win = newwin(LINES, COLUMNS, 0, 0);
+	win = newwin(LINES, COLUMNS, maxX, maxY);
 	nodelay(stdscr, TRUE);
 	keypad(stdscr, TRUE);
 	getmaxyx(win, maxY, maxX);
@@ -100,13 +118,18 @@ int main(void) {
 		cmd = getch();
 		clear();
 		if (cmd == ' ') {
-			ft_add_entity(&data, player.attack(player.getX(), player.getY()));
+		//	ft_add_entity(&data, player.attack(player.getX(), player.getY()));
 		}
-		ft_add_entity(&data, Random(maxX, maxY));
-		displayEntities(data);
-		movePlayer(player, cmd, maxX, maxY);
-//		box(win, 0, 0);
-//		wrefresh(win);
+	ft_add_entity(&data, Random(maxX, maxY));
+	ft_add_entity(&data, RanPutEtoile(maxX, maxY));
+	displayEntities(data);
+	Etoile::scrolling();
+	movePlayer(player, cmd, maxX, maxY);
+
+
+	//box(win, 0, 0);
+///	wrefresh(win);
+//	system("");
 		refresh();
 		usleep(DELAY);
 	}

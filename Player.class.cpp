@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:50:50 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/11 19:04:15 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 21:46:15 by oberrada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,15 @@ Player & Player::operator=(Player const & rhs)
 	this->_dmg = rhs._dmg;
 	return *this;
 }
-
+/*
 Projectile  *Player::attack(int x, int y, int hp)
 {
 	return new Projectile(x + 1, y, hp, 1, '-');
+}
+*/
+std::ostream & operator<<(std::ostream & o, Player const & rhs)
+{
+	
+	o<<rhs.GetHP();
+	return o;
 }

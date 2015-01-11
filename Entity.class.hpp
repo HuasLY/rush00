@@ -28,6 +28,7 @@ class Entity{
 		int		getX(void);
 		int		getY(void);
 		char	getSkin(void) const;
+        int		GetHP(void) const;
 		//todo: getHP
 
 	protected:

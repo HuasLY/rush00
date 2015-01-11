@@ -6,7 +6,7 @@
 #    By: hly <marvin@42.fr>                         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/01/11 12:40:45 by hly               #+#    #+#              #
-#    Updated: 2015/01/11 12:57:54 by hly              ###   ########.fr        #
+#    Updated: 2015/01/11 21:19:19 by oberrada         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC = Entity.class.cpp\
 	  Enemy.class.cpp\
 	  Projectile.class.cpp\
 	  ft_retro_list.cpp\
+	  Etoile.class.cpp\
 	  main.cpp
 
 OBJ = $(SRC:.cpp=.o)

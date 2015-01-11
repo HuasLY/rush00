@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:45:31 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/11 18:55:28 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 21:25:49 by oberrada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ class Player: public Entity{
 	    ~Player(void);
 	    Player(Player const & src);
    		Player & operator=(Player const & rhs);
-		Projectile *attack(int X, int Y, int HP = 1);
+	//	Projectile *attack(int X, int Y, int HP = 1);
 };
 
+std::ostream &	operator<<(std::ostream & o, Player const & rhs);
 
 #endif //***********PLAYER_CLASS_H//

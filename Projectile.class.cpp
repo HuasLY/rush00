@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 19:35:51 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/11 19:54:48 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 20:39:10 by oberrada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ Projectile & Projectile::operator=(Projectile const & rhs)
 	return *this;
 }
 
-void	Projectile::Move(std::string direction, t_data_entities &data)
+void	Projectile::Move(std::string direction)
 {
 	(void)direction;
 	this->Entity::Move(RIGHT);
-	if (collision(*this, data))
-		this->Die();
+//	if (collision(*this, data))
+//		this->Die();
 	return;
 }

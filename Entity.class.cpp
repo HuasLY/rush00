@@ -6,7 +6,7 @@
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:14:04 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/11 19:54:30 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 21:23:05 by oberrada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ int		Entity::getY(void)
 char	Entity::getSkin(void) const
 {
 	return this->_skin;
+}
+
+int		Entity::GetHP(void) const
+{
+	return this->_hp;
 }
 
 void	Entity::Move(std::string direction)
