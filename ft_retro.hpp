@@ -6,7 +6,7 @@
 /*   By: hly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 20:03:58 by hly               #+#    #+#             */
-/*   Updated: 2015/01/11 22:58:49 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 23:40:26 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define COLUMNS 100
 # define ENEMY_SKIN 'E'
 # define SPAWN_RATE 30
+# define ETOILE_SKIN '*'
 
 typedef struct		s_entities
 {

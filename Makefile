@@ -6,7 +6,7 @@
 #    By: hly <marvin@42.fr>                         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/01/11 12:40:45 by hly               #+#    #+#              #
-#    Updated: 2015/01/11 12:57:54 by hly              ###   ########.fr        #
+#    Updated: 2015/01/11 23:28:22 by hly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC = Entity.class.cpp\
 	  Player.class.cpp\
 	  Enemy.class.cpp\
 	  Projectile.class.cpp\
+	  Etoile.class.cpp\
 	  ft_retro_list.cpp\
 	  main.cpp
 

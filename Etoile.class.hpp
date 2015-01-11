@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Enemy.class.hpp                                    :+:      :+:    :+:   */
+/*   Etoile.class.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oberrada <oberrada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/10 16:29:42 by oberrada          #+#    #+#             */
-/*   Updated: 2015/01/11 23:33:31 by hly              ###   ########.fr       */
+/*   Created: 2015/01/11 20:04:36 by oberrada          #+#    #+#             */
+/*   Updated: 2015/01/11 23:40:02 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENEMY_CLASS_H
-# define ENEMY_CLASS_H
+
+#ifndef ETOILE_CLASS_H
+# define ETOILE_CLASS_H
 
 #include <string>
 #include "Entity.class.hpp"
+#include "ft_retro.hpp"
 
-class Enemy: public Entity{
-	public:
-    	Enemy(void);
-	    Enemy(int x, int y, int hp, char skin, int dmg = 1, std::string type = "basic");
-		~Enemy(void);
-	    Enemy(Enemy const & src);
-	    Enemy & operator=(Enemy const & rhs);
-		virtual void	Move(std::string direction, t_data_entities &data);
-    
-	private:
-		std::string	_type;
+class Etoile: public Entity{
+public:
+    Etoile(void);
+    Etoile(int x, int y, int hp, int dmg, char skin);
+    ~Etoile(void);
+    Etoile(Etoile const & src);
+    Etoile & operator=(Etoile const & rhs);
+    virtual void	Move(std::string direction, t_data_entities &data);
+	static void	scrolling(void);
+private:
+	static	int _Movecount;
+
 };
 
-#endif //***********ENEMY_CLASS_H//
+#endif //***********ETOILE_CLASS_H//

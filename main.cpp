@@ -6,7 +6,7 @@
 /*   By: hly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 15:22:26 by hly               #+#    #+#             */
-/*   Updated: 2015/01/11 22:58:27 by hly              ###   ########.fr       */
+/*   Updated: 2015/01/11 23:36:43 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "Enemy.class.hpp"
 #include "Player.class.hpp"
 #include "Projectile.class.hpp"
+#include "Etoile.class.hpp"
 #include "ft_retro.hpp"
 
 #define DELAY 30000
@@ -33,6 +34,21 @@ Enemy	*Random(int maxX, int maxY) {
 		Y = (rand() % maxY) + 1;
 		HP = (rand() % 2) + 1;
 		return new Enemy(X, Y, HP, ENEMY_SKIN);
+	}
+	return NULL;
+}
+
+Etoile	*RanPutEtoile(int maxX, int maxY) {
+	int		X;
+	int		Y;
+	int		HP;
+
+	if (rand() % SPAWN_RATE == 1)
+	{
+		X = maxX;
+		Y = (rand() % maxY) + 1;
+		HP = (rand() % 2) + 1;
+		return new Etoile(X, Y, HP, 0,ETOILE_SKIN);
 	}
 	return NULL;
 }
@@ -106,6 +122,7 @@ int main(void) {
 		if (cmd == ' ') {
 			ft_add_entity(&data, player.attack(player.getX(), player.getY()));
 		}
+		ft_add_entity(&data, RanPutEtoile(maxX, maxY));
 		ft_add_entity(&data, Random(maxX, maxY));
 		displayEntities(data);
 		if (collision(player, data))
@@ -115,6 +132,7 @@ int main(void) {
 			if (collision(player, data))
 				gameOver = true;
 		}
+		Etoile::scrolling();
 		refresh();
 		usleep(DELAY);
 	}
